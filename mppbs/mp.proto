@@ -1,0 +1,416 @@
+syntax = "proto3";
+
+package mppbs;
+
+service Privilege {
+//    rpc Call (Request) returns (Response);
+//    rpc Stream (StreamingRequest) returns (stream StreamingResponse);
+//    rpc PingPong (stream Ping) returns (stream Pong);
+
+    // Find (FindReq) returns (FindResp);
+    // Save (SaveReq) returns (SaveResp);
+    // Delete (DeleteReq) returns (DeleteResp);
+
+    //privilege rpc
+//    rpc PrivilegeAdminFind (PrivilegeAdminFindReq) returns (PrivilegeAdminFindResp);
+//    rpc PrivilegeAdminSave (PrivilegeAdminSaveReq) returns (PrivilegeAdminSaveResp);
+//    rpc PrivilegeAdminDelete (PrivilegeAdminDeleteReq) returns (PrivilegeAdminDeleteResp);
+//
+//    rpc PrivilegeMenuFind (PrivilegeMenuFindReq) returns (PrivilegeMenuFindResp);
+//    rpc PrivilegeMenuSave (PrivilegeMenuSaveReq) returns (PrivilegeMenuSaveResp);
+//    rpc PrivilegeMenuDelete (PrivilegeMenuDeleteReq) returns (PrivilegeMenuDeleteResp);
+//
+//    rpc PrivilegeRoleFind (PrivilegeRoleFindReq) returns (PrivilegeRoleFindResp);
+//    rpc PrivilegeRoleSave (PrivilegeRoleSaveReq) returns (PrivilegeRoleSaveResp);
+//    rpc PrivilegeRoleDelete (PrivilegeRoleDeleteReq) returns (PrivilegeRoleDeleteResp);
+//
+//    rpc PrivilegeRoleMenuFind (PrivilegeRoleMenuFindReq) returns (PrivilegeRoleMenuFindResp);
+//    rpc PrivilegeRoleMenuSave (PrivilegeRoleMenuSaveReq) returns (PrivilegeRoleMenuSaveResp);
+//    rpc PrivilegeRoleMenuDelete (PrivilegeRoleMenuDeleteReq) returns (PrivilegeRoleMenuDeleteResp);
+//
+//    rpc PrivilegeMenuBackUrlFind (PrivilegeMenuBackUrlFindReq) returns (PrivilegeMenuBackUrlFindResp);
+//    rpc PrivilegeMenuBackUrlSave (PrivilegeMenuBackUrlSaveReq) returns (PrivilegeMenuBackUrlSaveResp);
+//    rpc PrivilegeMenuBackUrlDelete (PrivilegeMenuBackUrlDeleteReq) returns (PrivilegeMenuBackUrlDeleteResp);
+}
+
+message Message {
+    string say = 1;
+}
+
+message Request {
+    string name = 1;
+}
+
+message Response {
+    string msg = 1;
+}
+
+message StreamingRequest {
+    int64 count = 1;
+}
+
+message StreamingResponse {
+    int64 count = 1;
+}
+
+message Ping {
+    int64 stroke = 1;
+}
+
+message Pong {
+    int64 stroke = 1;
+}
+
+// ---- privilege_admin ----
+message PrivilegeAdmin {
+    int32 id = 1;
+    string login_name = 2;
+    string password = 3;
+    string username = 4;
+    string avatar = 5;
+    string salt = 6;
+    string dep_key = 7;
+    string role_key = 8;
+    int32 is_admin = 9;
+    int32 create_time = 10;
+    int32 update_time = 11;
+}
+
+message PrivilegeAdminFindReq {
+    int32 page = 1;
+    int32 size = 2;
+    PrivilegeAdminFindWhere where = 3;
+    string order_by = 4;
+}
+
+message PrivilegeAdminFindWhere {
+    repeated int32 id = 1;
+    string login_name = 2;
+    string username = 3;
+    string role_key = 4;
+    int32 is_admin = 5;
+    bool filter_admin = 6;
+}
+
+message PrivilegeAdminFindResp {
+    int32 page = 1;
+    int32 size = 2;
+    int32 total_page = 3;
+    int32 total_size = 4;
+    repeated PrivilegeAdmin list = 5;
+}
+
+message PrivilegeAdminSaveReq {
+    int32 id = 1;
+    string login_name = 2;
+    string password = 3;
+    string username = 4;
+    string avatar = 5;
+    string salt = 6;
+    string dep_key = 7;
+    string role_key = 8;
+    int32 is_admin = 9;
+    int32 create_time = 10;
+    int32 update_time = 11;
+}
+
+message PrivilegeAdminSaveResp {
+    int32 id = 1;
+}
+
+message PrivilegeAdminDeleteReq {
+    repeated int32 id = 1;
+    string login_name = 2;
+    string username = 3;
+    string role_key = 4;
+    int32 is_admin = 5;
+}
+
+message PrivilegeAdminDeleteResp {
+    int32 affect_rows = 1;
+}
+
+// ---- privilege_menu ----
+message PrivilegeMenu {
+    int32 id = 1;
+    string path = 2;
+    string component = 3;
+    string title = 4;
+    string name = 5;
+    string icon = 6;
+    string menu_key = 7;
+    int32 level = 8;
+    int32 display_order = 9;
+    int32 is_hidden = 10;
+    int32 is_delete = 11;
+    int32 create_time = 12;
+    int32 update_time = 13;
+}
+
+message PrivilegeMenuFindReq {
+    int32 page = 1;
+    int32 size = 2;
+    PrivilegeMenuFindWhere where = 3;
+    string order_by = 4;
+}
+
+message PrivilegeMenuFindWhere {
+    repeated int32 id = 1;
+    string path = 2;
+    repeated string component = 3;
+    string title = 4;
+    string name = 5;
+    string icon = 6;
+    string menu_key = 7;
+    bool fuzzy_menu_key = 8;
+    repeated int32 level = 9;
+    repeated string menu_keys = 10;
+    repeated int32 is_hidden = 11;
+    repeated int32 is_delete = 12;
+}
+
+message PrivilegeMenuFindResp {
+    int32 page = 1;
+    int32 size = 2;
+    int32 total_page = 3;
+    int32 total_size = 4;
+    repeated PrivilegeMenu list = 5;
+}
+
+message PrivilegeMenuSaveReq {
+    int32 id = 1;
+    string path = 2;
+    string component = 3;
+    string title = 4;
+    string name = 5;
+    string icon = 6;
+    string menu_key = 7;
+    int32 level = 8;
+    int32 display_order = 9;
+    int32 is_hidden = 10;
+    int32 is_delete = 11;
+    int32 create_time = 12;
+    int32 update_time = 13;
+}
+
+message PrivilegeMenuSaveResp {
+    int32 id = 1;
+}
+
+message PrivilegeMenuDeleteReq {
+    repeated int32 id = 1;
+    string path = 2;
+    repeated string component = 3;
+    string title = 4;
+    string name = 5;
+    string icon = 6;
+    string menu_key = 7;
+    bool fuzzy_menu_key = 8;
+    repeated int32 level = 9;
+    repeated string menu_keys = 10;
+    repeated int32 is_hidden = 11;
+    repeated int32 is_delete = 12;
+}
+
+message PrivilegeMenuDeleteResp {
+    int32 affect_rows = 1;
+}
+
+// ---- privilege_role ----
+message PrivilegeRole {
+    int32 id = 1;
+    string name = 2;
+    string desc = 3;
+    string role_key = 4;
+    int32 status = 5;
+    int32 create_time = 6;
+    int32 update_time = 7;
+    int32 is_delete = 8;
+}
+
+message PrivilegeRoleFindReq {
+    int32 page = 1;
+    int32 size = 2;
+    PrivilegeRoleFindWhere where = 3;
+    string order_by = 4;
+}
+
+message PrivilegeRoleFindWhere {
+    repeated int32 id = 1;
+    string name = 2;
+    string desc = 3;
+    bool fuzzy_name = 4;
+    string role_key = 5;
+    bool fuzzy_role_key = 6;
+    repeated int32 status = 7;
+    repeated string role_keys = 8;
+}
+
+message PrivilegeRoleFindResp {
+    int32 page = 1;
+    int32 size = 2;
+    int32 total_page = 3;
+    int32 total_size = 4;
+    repeated PrivilegeRole list = 5;
+}
+
+message PrivilegeRoleSaveReq {
+    int32 id = 1;
+    string name = 2;
+    string desc = 3;
+    string role_key = 4;
+    int32 status = 5;
+    int32 create_time = 6;
+    int32 update_time = 7;
+    int32 is_delete = 8;
+}
+
+message PrivilegeRoleSaveResp {
+    int32 id = 1;
+}
+
+message PrivilegeRoleDeleteReq {
+    repeated int32 id = 1;
+    string name = 2;
+    string desc = 3;
+    bool fuzzy_name = 4;
+    string role_key = 5;
+    bool fuzzy_role_key = 6;
+    repeated int32 status = 7;
+    repeated string role_keys = 8;
+}
+
+message PrivilegeRoleDeleteResp {
+    int32 affect_rows = 1;
+}
+
+// ---- privilege_role_menu ----
+message PrivilegeRoleMenu {
+    int32 id = 1;
+    string role_key = 2;
+    string menu_key = 3;
+    int32 is_delete = 4;
+    int32 create_time = 5;
+    int32 update_time = 6;
+}
+
+message PrivilegeRoleMenuFindReq {
+    int32 page = 1;
+    int32 size = 2;
+    PrivilegeRoleMenuFindWhere where = 3;
+    string order_by = 4;
+}
+
+message PrivilegeRoleMenuFindWhere {
+    repeated int32 id = 1;
+    string role_key = 2;
+    bool fuzzy_role_key = 3;
+    string menu_key = 4;
+    bool fuzzy_menu_key = 5;
+    repeated string role_keys = 6;
+    repeated string menu_keys = 7;
+    repeated int32 is_delete = 8;
+}
+
+message PrivilegeRoleMenuFindResp {
+    int32 page = 1;
+    int32 size = 2;
+    int32 total_page = 3;
+    int32 total_size = 4;
+    repeated PrivilegeRoleMenu list = 5;
+}
+
+message PrivilegeRoleMenuSaveReq {
+    int32 id = 1;
+    string role_key = 2;
+    string menu_key = 3;
+    int32 is_delete = 4;
+    int32 create_time = 5;
+    int32 update_time = 6;
+}
+
+message PrivilegeRoleMenuSaveResp {
+    int32 id = 1;
+}
+
+message PrivilegeRoleMenuDeleteReq {
+    repeated int32 id = 1;
+    string role_key = 2;
+    bool fuzzy_role_key = 3;
+    string menu_key = 4;
+    bool fuzzy_menu_key = 5;
+    repeated string role_keys = 6;
+    repeated string menu_keys = 7;
+    repeated int32 is_delete = 8;
+}
+
+message PrivilegeRoleMenuDeleteResp {
+    int32 affect_rows = 1;
+}
+
+// ---- privilege_menu_back_url ----
+message PrivilegeMenuBackUrl {
+    int32 id = 1;
+    string menu_key = 2;
+    string back_url = 3;
+    string desc = 4;
+    int32 is_delete = 5;
+    int32 create_time = 6;
+    int32 update_time = 7;
+}
+
+message PrivilegeMenuBackUrlFindReq {
+    int32 page = 1;
+    int32 size = 2;
+    PrivilegeMenuBackUrlFindWhere where = 3;
+    string order_by = 4;
+}
+
+message PrivilegeMenuBackUrlFindWhere {
+    repeated int32 id = 1;
+    string menu_key = 2;
+    bool fuzzy_menu_key = 3;
+    string back_url = 4;
+    bool fuzzy_back_url = 5;
+    string desc = 6;
+    repeated int32 is_delete = 7;
+    repeated string menu_keys = 8;
+}
+
+message PrivilegeMenuBackUrlFindResp {
+    int32 page = 1;
+    int32 size = 2;
+    int32 total_page = 3;
+    int32 total_size = 4;
+    repeated PrivilegeMenuBackUrl list = 5;
+}
+
+message PrivilegeMenuBackUrlSaveReq {
+    int32 id = 1;
+    string menu_key = 2;
+    string back_url = 3;
+    string desc = 4;
+    int32 is_delete = 5;
+    int32 create_time = 6;
+    int32 update_time = 7;
+}
+
+message PrivilegeMenuBackUrlSaveResp {
+    int32 id = 1;
+}
+
+message PrivilegeMenuBackUrlDeleteReq {
+    repeated int32 id = 1;
+    string menu_key = 2;
+    bool fuzzy_menu_key = 3;
+    string back_url = 4;
+    bool fuzzy_back_url = 5;
+    string desc = 6;
+    repeated int32 is_delete = 7;
+    repeated string menu_keys = 8;
+}
+
+message PrivilegeMenuBackUrlDeleteResp {
+    int32 affect_rows = 1;
+}
+

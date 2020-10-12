@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package mppbs;
+
+import "google/protobuf/any.proto";
+
+// output any
+message Resp {
+    int32 code = 1;
+    string msg = 2;
+    google.protobuf.Any data = 3;
+}
