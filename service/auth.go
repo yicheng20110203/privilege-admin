@@ -21,6 +21,15 @@ type AuthorizationData struct {
     Os     string `json:"os"`
 }
 
+func CreateAuthorizationData(in *AuthorizationData) (resp string, err error) {
+    resp, err = library.AesUtil.EncryptString(config.Cfg.Aes.Key, in)
+    if err != nil {
+        logger.Logger.Errorf("service.CreateAuthorizationData error: %#v", err)
+        return "", err
+    }
+    return
+}
+
 func Auth(c *gin.Context, groupUri string, skipSign bool) (bool, error) {
     uri := c.Request.RequestURI
     for _, v := range global.WhiteList {
