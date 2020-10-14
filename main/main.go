@@ -5,7 +5,6 @@ import (
     "github.com/gin-gonic/gin"
     "gitlab.ceibsmoment.com/c/mp/config"
     "gitlab.ceibsmoment.com/c/mp/global"
-    "gitlab.ceibsmoment.com/c/mp/logger"
     "gitlab.ceibsmoment.com/c/mp/middleware"
     "gitlab.ceibsmoment.com/c/mp/routes"
 )
@@ -22,15 +21,8 @@ func main() {
     }
 
     router := gin.New()
-    g := router.Group("/privilege")
+    g := router.Group("/" + global.GroupPrefixPrivilege)
     g.Use(gin.Logger(), gin.Recovery())
-
-    // 捕获错误
-    defer func() {
-        if recv := recover(); recv != nil {
-            logger.Logger.Errorf("recover panic error: %v", recv)
-        }
-    }()
 
     // 鉴权
     g.Use(middleware.Auth())
